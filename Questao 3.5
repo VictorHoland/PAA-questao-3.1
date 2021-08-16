@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int buscabinaria(int vetor[], int direita, int esquerda, int valor, int cont){
+
+    printf("\ndireita->%d,  esquerda->%d, valor-> %d", direita, esquerda, valor);
+    int meio;
+    if(vetor[valor] == vetor[direita]){
+         printf("\nAchou e seu indice eh: %d\n\n", direita, valor);
+         return 1;
+    }else if(vetor[valor] == vetor[esquerda]){
+         printf("\nAchou e seu indice eh: %d\n\n", esquerda, valor);
+         return 1;
+    }
+
+    meio = (vetor[direita]+vetor[esquerda])/2;
+    //printf("\nvetor direita-> %d, vetor esquerda-> %d", vetor[direita], vetor[esquerda]);
+
+    if(vetor[meio] > valor){
+        direita = meio;
+        //printf("\npqp ->%d\n", meio);
+        printf("\nLoop %d: Esquerda-> %d, direita -> %d, Meio -> %d\n", cont,esquerda, direita, meio);
+
+        buscabinaria(vetor, direita, esquerda, valor, cont+1);
+    }else if(vetor[meio] <valor){
+        esquerda = meio;
+        printf("\nLoop %d: Esquerda-> %d, direita -> %d, Meio -> %d\n", cont,esquerda, direita, meio);
+
+        buscabinaria(vetor, direita, esquerda, valor, cont+1);
+    }else{
+        printf("\nAchou e seu indice eh: %d\n\n", meio-1);
+        //printf("eu chego aqui?");
+    }
+}
+
+int main() {
+
+    int valor,n;
+    int len, cont = 0;
+
+    printf("Qual o tamanho do vetor?");
+     scanf("%d", &n);
+     int vetor[n];
+
+    for(int i = 0; i<n+1; i++){
+
+        vetor[i+1] = i;
+        //printf("\n%d\n", vetor[i]);
+    }
+    //printf("\n utimo ->%d", vetor[n-1]);
+
+    len = sizeof(vetor)/sizeof(vetor[0]);
+
+    printf("Qual o valor quer saber que existe? ");
+    scanf("%d", &valor);
+
+     buscabinaria(vetor, len, 1, valor, cont);
+
+	return 0;
+}
