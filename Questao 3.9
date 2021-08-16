@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+void buscabinaria(int vetor[], int n, int direita, int esquerda){
+
+    int meio;
+
+    meio = (direita + esquerda)/2;
+
+    if(vetor[meio] > vetor[meio -1] && vetor[meio]> vetor[meio + 1]){
+
+        printf("\nMaior valor: %d, na posicao %d do vetor\n", vetor[meio], meio);
+        return 1;
+
+    }else if(vetor[meio] > vetor[meio -1] && vetor[meio]< vetor[meio + 1]){
+
+        buscabinaria(vetor, n, direita, meio);
+
+    }else if(vetor[meio] < vetor[meio -1] && vetor[meio]> vetor[meio + 1]){
+        buscabinaria(vetor, n, meio, esquerda);
+    }
+}
+
+int main() {
+    //maior numero na esquerda
+    int vetor1[11] = {0,2,7,12,15,20,17,13,10,6,1};
+    //maior numero no meio
+    int vetor2[15] = {3,4,7,101,71,65,22,21,15,12,10,6,3,1,0};
+    //maior numero na direita
+    int vetor3[20] = {1,2,7,87,90,96,100,256,300,456,501,502,600,689,801,803,999,50,25,1};
+    int n1,n2,n3;
+
+    n1 = sizeof(vetor1)/sizeof(vetor1[0]);
+    n2 = sizeof(vetor2)/sizeof(vetor2[0]);
+    n3 = sizeof(vetor3)/sizeof(vetor3[0]);
+
+    buscabinaria(vetor1, n1, n1, 0);
+    buscabinaria(vetor2,n2, n2, 0);
+    buscabinaria(vetor3,n3, n3, 0);
+
+	return 0;
+}
