@@ -1,0 +1,132 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int cont = 0;
+
+void hanoi(int t1[], int n1,int ind1, int t2[], int n2,int ind2, int t3[],int n3,int ind3, int t4[], int n4,int ind4){
+
+    int i,j;
+
+    if(ind1 == 0){
+        return 0;
+    }
+
+    if(ind1 == 1){
+        for(i = 0; i<n1; i++){
+            if(t1[i] != 0){
+                cont++;
+                printf("Numeros de movimentos: %d", cont);
+                for(j = n1; j>=0; j--){
+                    if(t4[j] == 0){
+                        t4[j] = t1[i];
+                        t1[i] = 0;
+                        /*for(i = 0; i<n1; i++){
+                            printf("\n");
+                            if(cont == 1){
+                                printf("---> %d  %d  %d  %d", t1[i], t4[i],t3[i],t2[i]);
+                            }else
+                                printf("---> %d  %d  %d  %d", t1[i], t2[i],t3[i],t4[i]);
+                        }*/
+                        return 0;
+                    }
+                }
+            }
+        }
+    }
+
+    hanoi(t1, n1, ind1-2, t3, n3, ind3-2, t4, n4, ind4-2, t2, n2, ind2-2);
+    printf("\n---------------------------\n");
+    cont++;
+    printf("Numeros de movimentos: %d", cont);
+
+    for(i = 0; i<n1; i++){
+            if(t1[i] != 0){
+                for(j = n1; j>=0; j--){
+                    if(t3[j] == 0){
+                        t3[j] = t1[i];
+                        t1[i] = 0;
+                        /*for(i = 0; i<n1; i++){
+                            printf("\n");
+                            printf("-8> %d  %d  %d  %d", t1[i], t2[i],t3[i],t4[i]);
+                        }*/
+                        break;
+                    }
+                }
+            }
+        }
+
+    printf("\n---------------------------\n");
+    cont++;
+    printf("Numeros de movimentos: %d", cont);
+        for(i = 0; i<n1; i++){
+            if(t1[i] != 0){
+                for(j = n1; j>=0; j--){
+                    if(t4[j] == 0){
+                        t4[j] = t1[i];
+                        t1[i] = 0;
+                        /*for(i = 0; i<n1; i++){
+                            printf("\n e aqui?");
+                            printf("-> %d  %d  %d  %d", t1[i], t2[i],t3[i],t4[i]);
+                        }*/
+                        break;
+                    }
+                }
+            }
+        }
+        printf("\n---------------------------\n");
+        cont++;
+    printf("Numeros de movimentos: %d", cont);
+        for(i = 0; i<n1; i++){
+            if(t3[i] != 0){
+                for(j = n1; j>=0; j--){
+                    if(t4[j] == 0){
+                        t4[j] = t3[i];
+                        t3[i] = 0;
+                        /*for(i = 0; i<n1; i++){
+                            printf("\n ");
+                            printf("--> %d  %d  %d  %d", t1[i], t2[i],t3[i],t4[i]);
+                        }*/
+                        break;
+                    }
+                }
+            }
+        }
+    printf("\n---------------------------\n");
+
+
+    hanoi(t2, n2, ind2-2, t3, n3, ind3-2, t1, n1, ind1-2, t4, n4, ind4-2);
+
+}
+
+int main() {
+    int n,i,j;
+    scanf("%d", &n);
+    int torre1[n+1];
+    int torre2[n+1];
+    int torre3[n+1];
+    int torre4[n+1];
+    int indice = n;
+
+    for(i = 0; i<n; i++){
+        torre1[i] = i+1;
+        torre2[i] = 0;
+        torre3[i] = 0;
+        torre4[i] = 0;
+    }
+    int tam = sizeof(torre1)/sizeof(torre1[0]);
+    printf("\n--> %d\n", tam);
+
+    printf("\nAtual");
+    /*for(i = 0; i<n; i++){
+        printf("\n");
+        printf("-> %d  %d  %d  %d", torre1[i], torre2[i],torre3[i],torre4[i]);
+    }*/
+
+    printf("\nA partir daqui se conta os movimentos\n");
+
+    hanoi(torre1,n,indice,torre2,n,indice,torre3,n,indice,torre4,n,indice);
+
+    return 0;
+}
